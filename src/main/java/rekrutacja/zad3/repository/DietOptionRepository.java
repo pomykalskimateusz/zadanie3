@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 public interface DietOptionRepository extends JpaRepository<DietOption, Integer>
 {
-    List<DietOption> findByDietId(Integer dietId);
+    List<DietOption> findByDiet_DietId(Integer dietId);
 }

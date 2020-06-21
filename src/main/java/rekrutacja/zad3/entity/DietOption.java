@@ -26,7 +26,6 @@ public class DietOption {
 
     @JsonBackReference
     @ManyToOne
-//    @JoinColumn(name = "diet_id", nullable = false)
     private Diet diet;
 
     @JsonManagedReference

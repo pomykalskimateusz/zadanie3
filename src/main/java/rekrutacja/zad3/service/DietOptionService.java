@@ -20,7 +20,7 @@ public class DietOptionService
 
     public List<DietOption> findAll(Integer dietId)
     {
-        return dietOptionRepository.findByDietId(dietId);
+        return dietOptionRepository.findByDiet_DietId(dietId);
     }
 
     public Optional<DietOption> save(Integer dietId, DietOptionDto dietOptionDto)

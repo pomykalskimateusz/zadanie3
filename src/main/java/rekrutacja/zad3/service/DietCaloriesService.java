@@ -19,7 +19,7 @@ public class DietCaloriesService
 
     public List<DietCalories> findAll(Integer dietOptionId)
     {
-        return dietCaloriesRepository.findByDietOptionId(dietOptionId);
+        return dietCaloriesRepository.findByDietOption_DietOptionId(dietOptionId);
     }
 
     public Optional<DietCalories> save(Integer dietOptionId, DietCaloriesDto dietCaloriesDto)
