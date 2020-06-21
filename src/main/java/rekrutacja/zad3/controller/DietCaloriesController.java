@@ -30,7 +30,7 @@ public class DietCaloriesController
     }
 
     @PutMapping("/calories/{dietCaloriesId}")
-    public Optional<DietCalories> updateDietOptionCalories(@PathVariable Integer dietCaloriesId, @RequestBody DietCaloriesDto dietCaloriesDto)
+    public Optional<DietCalories> updateCalories(@PathVariable Integer dietCaloriesId, @RequestBody DietCaloriesDto dietCaloriesDto)
     {
         return dietCaloriesService.update(dietCaloriesId, dietCaloriesDto);
     }
