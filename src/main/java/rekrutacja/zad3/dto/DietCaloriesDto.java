@@ -1,6 +1,7 @@
 package rekrutacja.zad3.dto;
 
 import lombok.Data;
+
 import rekrutacja.zad3.entity.DietCalories;
 import rekrutacja.zad3.entity.DietOption;
 

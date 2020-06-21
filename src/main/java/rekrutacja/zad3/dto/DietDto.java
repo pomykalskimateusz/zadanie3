@@ -1,9 +1,8 @@
 package rekrutacja.zad3.dto;
 
 import lombok.Data;
-import rekrutacja.zad3.entity.Diet;
 
-import java.util.Collections;
+import rekrutacja.zad3.entity.Diet;
 
 @Data
 public class DietDto
@@ -17,7 +16,6 @@ public class DietDto
                 .builder()
                 .name(name)
                 .description(description)
-                .dietOptions(Collections.emptySet())
                 .build();
     }
 }
