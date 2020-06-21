@@ -18,13 +18,13 @@ public class DietCaloriesController
 {
     private final DietCaloriesService dietCaloriesService;
 
-    @GetMapping("/options/{dietOptionId}/calories")
+    @GetMapping("/diets/options/{dietOptionId}/calories")
     public List<DietCalories> findDietOptionCalories(@PathVariable Integer dietOptionId)
     {
         return dietCaloriesService.findAll(dietOptionId);
     }
 
-    @PostMapping("/options/{dietOptionId}/calories")
+    @PostMapping("/diets/options/{dietOptionId}/calories")
     public ResponseEntity saveDietOptionCalories(@PathVariable Integer dietOptionId, @RequestBody DietCaloriesDto dietCaloriesDto)
     {
         return dietCaloriesService
@@ -33,7 +33,7 @@ public class DietCaloriesController
                 .orElse(new ResponseEntity(HttpStatus.NOT_FOUND));
     }
 
-    @DeleteMapping("/calories/{dietCaloriesId}")
+    @DeleteMapping("/diets/options/calories/{dietCaloriesId}")
     public ResponseEntity deleteDietCalories(@PathVariable Integer dietCaloriesId)
     {
         boolean result = dietCaloriesService.delete(dietCaloriesId);
@@ -47,7 +47,7 @@ public class DietCaloriesController
         }
     }
 
-    @PutMapping("/calories/{dietCaloriesId}")
+    @PutMapping("/diets/options/calories/{dietCaloriesId}")
     public ResponseEntity updateCalories(@PathVariable Integer dietCaloriesId, @RequestBody DietCaloriesDto dietCaloriesDto)
     {
         return dietCaloriesService

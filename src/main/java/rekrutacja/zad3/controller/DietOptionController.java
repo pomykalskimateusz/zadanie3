@@ -33,7 +33,7 @@ public class DietOptionController
                 .orElse(new ResponseEntity(HttpStatus.NOT_FOUND));
     }
 
-    @DeleteMapping("/options/{dietOptionId}")
+    @DeleteMapping("/diets/options/{dietOptionId}")
     public ResponseEntity deleteDietOption(@PathVariable Integer dietOptionId)
     {
         boolean result = dietOptionService.delete(dietOptionId);
@@ -47,7 +47,7 @@ public class DietOptionController
         }
     }
 
-    @PutMapping("/options/{dietOptionId}")
+    @PutMapping("/diets/options/{dietOptionId}")
     public ResponseEntity updateDietOption(@PathVariable Integer dietOptionId, @RequestBody DietOptionDto dietOptionDto)
     {
         return dietOptionService
