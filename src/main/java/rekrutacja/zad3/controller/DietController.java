@@ -1,13 +1,16 @@
 package rekrutacja.zad3.controller;
 
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import rekrutacja.zad3.dto.DietDto;
 import rekrutacja.zad3.entity.Diet;
 import rekrutacja.zad3.service.DietService;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -28,14 +31,25 @@ public class DietController
     }
 
     @DeleteMapping("/diets/{dietId}")
-    public void deleteDiet(@PathVariable Integer dietId)
+    public ResponseEntity deleteDiet(@PathVariable Integer dietId)
     {
-        dietService.delete(dietId);
+        boolean result = dietService.delete(dietId);
+        if(result)
+        {
+            return new ResponseEntity(HttpStatus.OK);
+        }
+        else
+        {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PutMapping("/diets/{dietId}")
-    public Optional<Diet> updateDiet(@PathVariable Integer dietId, @RequestBody DietDto dietDto)
+    public ResponseEntity updateDiet(@PathVariable Integer dietId, @RequestBody DietDto dietDto)
     {
-        return dietService.update(dietId, dietDto);
+        return dietService
+                .update(dietId, dietDto)
+                .map(diet -> new ResponseEntity(diet, HttpStatus.OK))
+                .orElse(new ResponseEntity(HttpStatus.NOT_FOUND));
     }
 }

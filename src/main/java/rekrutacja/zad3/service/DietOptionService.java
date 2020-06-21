@@ -24,9 +24,17 @@ public class DietOptionService
         return dietOptionRepository.findByDiet_DietId(dietId);
     }
 
-    public void delete(Integer id)
+    public boolean delete(Integer id)
     {
-        dietOptionRepository.deleteById(id);
+        try
+        {
+            dietOptionRepository.deleteById(id);
+            return true;
+        }
+        catch (Exception exception)
+        {
+            return false;
+        }
     }
 
     public Optional<DietOption> save(Integer dietId, DietOptionDto dietOptionDto)

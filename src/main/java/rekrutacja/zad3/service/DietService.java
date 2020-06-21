@@ -27,9 +27,17 @@ public class DietService
         return dietRepository.save(dietDto.toEntity());
     }
 
-    public void delete(Integer id)
+    public boolean delete(Integer id)
     {
-        dietRepository.deleteById(id);
+        try
+        {
+            dietRepository.deleteById(id);
+            return true;
+        }
+        catch (Exception exception)
+        {
+            return false;
+        }
     }
 
     @Transactional

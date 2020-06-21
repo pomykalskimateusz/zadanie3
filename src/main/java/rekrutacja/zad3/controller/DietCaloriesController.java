@@ -1,15 +1,16 @@
 package rekrutacja.zad3.controller;
 
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import rekrutacja.zad3.dto.DietCaloriesDto;
-import rekrutacja.zad3.dto.DietOptionDto;
 import rekrutacja.zad3.entity.DietCalories;
-import rekrutacja.zad3.entity.DietOption;
 import rekrutacja.zad3.service.DietCaloriesService;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,20 +25,34 @@ public class DietCaloriesController
     }
 
     @PostMapping("/options/{dietOptionId}/calories")
-    public Optional<DietCalories> saveDietOptionCalories(@PathVariable Integer dietOptionId, @RequestBody DietCaloriesDto dietCaloriesDto)
+    public ResponseEntity saveDietOptionCalories(@PathVariable Integer dietOptionId, @RequestBody DietCaloriesDto dietCaloriesDto)
     {
-        return dietCaloriesService.save(dietOptionId, dietCaloriesDto);
+        return dietCaloriesService
+                .save(dietOptionId, dietCaloriesDto)
+                .map(dietCalories -> new ResponseEntity(dietCalories, HttpStatus.OK))
+                .orElse(new ResponseEntity(HttpStatus.NOT_FOUND));
     }
 
     @DeleteMapping("/calories/{dietCaloriesId}")
-    public void deleteDietCalories(@PathVariable Integer dietCaloriesId)
+    public ResponseEntity deleteDietCalories(@PathVariable Integer dietCaloriesId)
     {
-        dietCaloriesService.delete(dietCaloriesId);
+        boolean result = dietCaloriesService.delete(dietCaloriesId);
+        if(result)
+        {
+            return new ResponseEntity(HttpStatus.OK);
+        }
+        else
+        {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PutMapping("/calories/{dietCaloriesId}")
-    public Optional<DietCalories> updateCalories(@PathVariable Integer dietCaloriesId, @RequestBody DietCaloriesDto dietCaloriesDto)
+    public ResponseEntity updateCalories(@PathVariable Integer dietCaloriesId, @RequestBody DietCaloriesDto dietCaloriesDto)
     {
-        return dietCaloriesService.update(dietCaloriesId, dietCaloriesDto);
+        return dietCaloriesService
+                .update(dietCaloriesId, dietCaloriesDto)
+                .map(dietCalories -> new ResponseEntity(dietCalories, HttpStatus.OK))
+                .orElse(new ResponseEntity(HttpStatus.NOT_FOUND));
     }
 }

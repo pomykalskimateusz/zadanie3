@@ -31,9 +31,17 @@ public class DietCaloriesService
                 .map(dietCaloriesRepository::save);
     }
 
-    public void delete(Integer id)
+    public boolean delete(Integer id)
     {
-        dietCaloriesRepository.deleteById(id);
+        try
+        {
+            dietCaloriesRepository.deleteById(id);
+            return true;
+        }
+        catch (Exception exception)
+        {
+            return false;
+        }
     }
 
     @Transactional

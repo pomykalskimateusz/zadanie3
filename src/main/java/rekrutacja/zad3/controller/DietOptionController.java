@@ -1,15 +1,16 @@
 package rekrutacja.zad3.controller;
 
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import rekrutacja.zad3.dto.DietDto;
+
 import rekrutacja.zad3.dto.DietOptionDto;
-import rekrutacja.zad3.entity.Diet;
 import rekrutacja.zad3.entity.DietOption;
 import rekrutacja.zad3.service.DietOptionService;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,20 +25,34 @@ public class DietOptionController
     }
 
     @PostMapping("/diets/{dietId}/options")
-    public Optional<DietOption> saveDietOption(@PathVariable Integer dietId, @RequestBody DietOptionDto dietOptionDto)
+    public ResponseEntity saveDietOption(@PathVariable Integer dietId, @RequestBody DietOptionDto dietOptionDto)
     {
-        return dietOptionService.save(dietId, dietOptionDto);
+        return dietOptionService
+                .save(dietId, dietOptionDto)
+                .map(dietOption -> new ResponseEntity(dietOption, HttpStatus.OK))
+                .orElse(new ResponseEntity(HttpStatus.NOT_FOUND));
     }
 
     @DeleteMapping("/options/{dietOptionId}")
-    public void deleteDietOption(@PathVariable Integer dietOptionId)
+    public ResponseEntity deleteDietOption(@PathVariable Integer dietOptionId)
     {
-        dietOptionService.delete(dietOptionId);
+        boolean result = dietOptionService.delete(dietOptionId);
+        if(result)
+        {
+            return new ResponseEntity(HttpStatus.OK);
+        }
+        else
+        {
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
     }
 
     @PutMapping("/options/{dietOptionId}")
-    public Optional<DietOption> updateDietOption(@PathVariable Integer dietOptionId, @RequestBody DietOptionDto dietOptionDto)
+    public ResponseEntity updateDietOption(@PathVariable Integer dietOptionId, @RequestBody DietOptionDto dietOptionDto)
     {
-        return dietOptionService.update(dietOptionId, dietOptionDto);
+        return dietOptionService
+                .update(dietOptionId, dietOptionDto)
+                .map(dietOption -> new ResponseEntity(dietOption, HttpStatus.OK))
+                .orElse(new ResponseEntity(HttpStatus.NOT_FOUND));
     }
 }
