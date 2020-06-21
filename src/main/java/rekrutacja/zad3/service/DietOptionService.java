@@ -24,6 +24,11 @@ public class DietOptionService
         return dietOptionRepository.findByDiet_DietId(dietId);
     }
 
+    public void delete(Integer id)
+    {
+        dietOptionRepository.deleteById(id);
+    }
+
     public Optional<DietOption> save(Integer dietId, DietOptionDto dietOptionDto)
     {
         return dietRepository

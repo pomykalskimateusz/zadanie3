@@ -31,6 +31,11 @@ public class DietCaloriesService
                 .map(dietCaloriesRepository::save);
     }
 
+    public void delete(Integer id)
+    {
+        dietCaloriesRepository.deleteById(id);
+    }
+
     @Transactional
     public Optional<DietCalories> update(Integer id, DietCaloriesDto dietCaloriesDto)
     {

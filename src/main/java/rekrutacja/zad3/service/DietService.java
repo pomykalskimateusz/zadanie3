@@ -27,6 +27,11 @@ public class DietService
         return dietRepository.save(dietDto.toEntity());
     }
 
+    public void delete(Integer id)
+    {
+        dietRepository.deleteById(id);
+    }
+
     @Transactional
     public Optional<Diet> update(Integer id, DietDto dietDto)
     {

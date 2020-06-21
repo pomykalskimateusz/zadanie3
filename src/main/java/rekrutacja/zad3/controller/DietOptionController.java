@@ -29,6 +29,12 @@ public class DietOptionController
         return dietOptionService.save(dietId, dietOptionDto);
     }
 
+    @DeleteMapping("/options/{dietOptionId}")
+    public void deleteDietOption(@PathVariable Integer dietOptionId)
+    {
+        dietOptionService.delete(dietOptionId);
+    }
+
     @PutMapping("/options/{dietOptionId}")
     public Optional<DietOption> updateDietOption(@PathVariable Integer dietOptionId, @RequestBody DietOptionDto dietOptionDto)
     {
