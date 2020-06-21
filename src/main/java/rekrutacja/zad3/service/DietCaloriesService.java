@@ -2,6 +2,7 @@ package rekrutacja.zad3.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import rekrutacja.zad3.dto.DietCaloriesDto;
 import rekrutacja.zad3.entity.DietCalories;
 import rekrutacja.zad3.repository.DietCaloriesRepository;
@@ -30,16 +31,17 @@ public class DietCaloriesService
                 .map(dietCaloriesRepository::save);
     }
 
+    @Transactional
     public Optional<DietCalories> update(Integer id, DietCaloriesDto dietCaloriesDto)
     {
-        Optional<DietCalories> optionalDietCalories = dietCaloriesRepository.findById(id);
+        return dietCaloriesRepository
+                .findById(id)
+                .map(dietCalories -> updateDietCalories(dietCalories, dietCaloriesDto));
+    }
 
-        if(optionalDietCalories.isPresent())
-        {
-            DietCalories dietCalories = optionalDietCalories.get();
-            dietCalories.setCalories(dietCaloriesDto.getCalories());
-
-            return Optional.of(dietCalories);
-        } else return Optional.empty();
+    private DietCalories updateDietCalories(DietCalories dietCalories, DietCaloriesDto dietCaloriesDto)
+    {
+        dietCalories.setCalories(dietCaloriesDto.getCalories());
+        return dietCalories;
     }
 }

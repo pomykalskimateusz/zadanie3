@@ -30,15 +30,15 @@ public class DietService
     @Transactional
     public Optional<Diet> update(Integer id, DietDto dietDto)
     {
-        Optional<Diet> optionalDiet = dietRepository.findById(id);
+        return dietRepository
+                .findById(id)
+                .map(diet -> updateDiet(diet, dietDto));
+    }
 
-        if(optionalDiet.isPresent())
-        {
-            Diet diet = optionalDiet.get();
-            diet.setName(dietDto.getName());
-            diet.setDescription(dietDto.getDescription());
-
-            return Optional.of(diet);
-        } else return Optional.empty();
+    private Diet updateDiet(Diet diet, DietDto dietDto)
+    {
+        diet.setName(dietDto.getName());
+        diet.setDescription(dietDto.getDescription());
+        return diet;
     }
 }
